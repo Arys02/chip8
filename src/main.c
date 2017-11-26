@@ -4,6 +4,7 @@
 #include "cpu.h"
 #include "screen.h"
 #include "sdl_tools.h"
+#include "opcode.h"
 
 #define CPUSPEED 4
 #define FRAMERATE 16

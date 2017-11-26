@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include "screen.h"
 
+static void init_px_array(SCREEN *screen);
+static void init_px_array_TEST_(SCREEN *screen);
+
 void screen_init(SCREEN *screen)
 {
   init_px_array_TEST_(screen);
