@@ -16,10 +16,9 @@ void screen_init(SCREEN *screen)
   screen->physical_screen = NULL;
   screen->square[0] = NULL;
   screen->square[1] = NULL;
-  screen->physical_screen = SDL_CreateWindow("chip8",
-      SDL_WINDOWPOS_UNDEFINED,
-      SDL_WINDOWPOS_UNDEFINED,
-      WIDTH, HEIGHT, SDL_WINDOW_OPENGL);
+
+  screen->physical_screen = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_HWSURFACE);
+  SDL_WM_SetCaption("Chip8", NULL);
 
   screen->square[0] = SDL_CreateRGBSurface(0,DIMPIXEL,DIMPIXEL,32,0,0,0,0);
   SDL_FillRect(screen->square[0], NULL, SDL_MapRGB(screen->square[0]->format, 0x00, 0x00, 0x00));
@@ -27,11 +26,33 @@ void screen_init(SCREEN *screen)
   screen->square[1] = SDL_CreateRGBSurface(0,DIMPIXEL,DIMPIXEL,32,0,0,0,0);
   SDL_FillRect(screen->square[1], NULL, SDL_MapRGB(screen->square[1]->format, 0xFF, 0xFF, 0xFF));
 
-  // add a test to check if physical_screen is ok
-
 }
 
-void print_screen(SCREEN *screen)
+void draw_pixel(SCREEN *screen, PIXEL pixel)
+{
+  SDL_BlitSurface(screen->square[pixel.color], NULL, screen->physical_screen, &pixel.pos);
+}
+
+void screen_clear(SCREEN *screen)
+{
+  for (int x = 0; x < w; ++x)
+    for (int y = 0; y < h; ++y)
+      screen->px_array[x][y].color = BLACK;
+
+  SDL_FillRect(screen->physical_screen, NULL, BLACK);
+}
+
+void screen_update(SCREEN *screen)
+{
+  for (int x = 0; x < w; ++x)
+    for (int y = 0; y < h; ++y)
+      draw_pixel(screen, screen->px_array[x][y]);
+
+  SDL_Flip(screen->physical_screen);
+}
+
+
+void screen_print(SCREEN *screen)
 {
   printf("w : %d ", w);
   printf("h : %d", h);

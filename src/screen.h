@@ -1,6 +1,6 @@
 #ifndef PIXEL_H
 # define PIXEL_H
-#include <SDL2/SDL.h>
+#include <SDL/SDL.h>
 
 #define BLACK 0
 #define WHITE 1
@@ -23,14 +23,16 @@ typedef struct
 typedef struct
 {
   PIXEL px_array[w][h];
-  SDL_Window *physical_screen;
+  SDL_Surface *physical_screen;
   SDL_Surface *square[2];
 } SCREEN;
 
 
 
 void screen_init(SCREEN *screen);
-
-void print_screen(SCREEN *screen);
+void draw_pixel(SCREEN *screen, PIXEL pixel);
+void screen_clear(SCREEN *screen);
+void screen_update(SCREEN *screen);
+void screen_print(SCREEN *screen);
 
 #endif /* !PIXEL_H */
