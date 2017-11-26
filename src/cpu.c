@@ -8,7 +8,7 @@ void cpu_init(CPU *cpu)
   for (Uint16 i = 0; i < MEMSIZE; ++i)
     cpu->memory[i] = 0;
 
-  cpu->mem_index = ADDRSTART;
+  cpu->mem_pc = ADDRSTART;
 
   for (Uint8 i = 0; i < 16; ++i)
   {
@@ -16,9 +16,9 @@ void cpu_init(CPU *cpu)
     cpu->stack[i] = 0;
   }
 
-  cpu->reg_addr = 0;
+  cpu->reg_I = 0;
   cpu->reg_index = 0;
-  //cpu->jump = 0;
+  cpu->jump = 0;
 
   cpu->timer_game = 0;
   cpu->timer_sound = 0;
@@ -29,15 +29,18 @@ void cpu_init(CPU *cpu)
 
 void cpu_decompter(CPU *cpu)
 {
-  printf("cpu_decompter\n");
+  if (cpu->timer_game)
+    cpu->timer_game--;
+  if (cpu->timer_sound)
+    cpu->timer_sound--;
 }
 
 
 void cpu_print(CPU *cpu)
 {
-  printf("mem_index = %d\n", cpu->mem_index);
+  printf("mem_index = %d\n", cpu->mem_pc);
 
-  printf("reg_addr = %d\n", cpu->reg_addr);
+  printf("reg_addr = %d\n", cpu->reg_I);
   printf("reg_index = %d\n", cpu->reg_index);
 
   printf("printf REGISTER : \n");

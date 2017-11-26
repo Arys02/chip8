@@ -6,10 +6,10 @@
 typedef struct
 {
   Uint8 memory[MEMSIZE];
-  Uint16 mem_index;
+  Uint16 mem_pc;
 
   Uint8 reg[16];
-  Uint16 reg_addr;
+  Uint16 reg_I;
   Uint8 reg_index;
 
   Uint16 stack[16];
