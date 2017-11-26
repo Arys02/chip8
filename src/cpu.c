@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL2/SDL.h>
+#include <SDL/SDL.h>
 #include "cpu.h"
 
 void cpu_init(CPU *cpu)

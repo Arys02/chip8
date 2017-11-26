@@ -1,11 +1,11 @@
 CC = gcc
 
 CFLAGS = -std=c99 -pedantic -Wall -Wextra -I src/
-LDFLAGS = -L/usr/lib/x86_64-linux-gnu -lSDL2
+LDFLAGS = -L/usr/lib/x86_64-linux-gnu -lSDL
 BIN = chip8
 SRC_DIR = src/
 I_DIR = src/include/
-OBJ = $(addprefix $(SRC_DIR),main.o cpu.o screen.o)
+OBJ = $(addprefix $(SRC_DIR),main.o cpu.o screen.o sdl_tools.o)
 
 all: $(BIN)
 
