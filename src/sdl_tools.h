@@ -1,7 +1,8 @@
 #ifndef SDL_TOOLS_H
 # define SDL_TOOLS_H
 
-#include <SDL2/SDL.h>
+#include <SDL/SDL.h>
+#include "screen.h"
 
 void sdl_init();
 void sdl_quit();

@@ -5,11 +5,13 @@
 
 void sdl_init()
 {
-  SDL_Init(SDL_INIT_EVERYTHING);
+  SDL_Init(SDL_INIT_VIDEO);
 }
 
-void sdl_quit()
+void sdl_quit(SCREEN *screen)
 {
+  SDL_FreeSurface(screen->square[0]);
+  SDL_FreeSurface(screen->square[1]);
   SDL_Quit();
 }
 

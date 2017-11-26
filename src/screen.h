@@ -35,4 +35,7 @@ void screen_clear(SCREEN *screen);
 void screen_update(SCREEN *screen);
 void screen_print(SCREEN *screen);
 
+static void init_px_array(SCREEN *screen);
+static void init_px_array_TEST_(SCREEN *screen);
+
 #endif /* !PIXEL_H */

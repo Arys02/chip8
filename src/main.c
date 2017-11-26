@@ -13,18 +13,15 @@ int main()
 
   //setup sdl
   sdl_init();
-  //cpu_print(cpu);
 
-
-
+  //setup screen
   SCREEN *screen = malloc(sizeof(SCREEN));
-
   screen_init(screen);
 
-  screen_clear(screen);
-  //screen_print(screen);
-  //
+  screen_update(screen);
+
   sdl_break();
+  sdl_quit(screen);
 
 
   free(cpu);

@@ -4,14 +4,7 @@
 
 void screen_init(SCREEN *screen)
 {
-
-  for (int x = 0; x < w; ++x)
-    for (int y = 0; y < h; ++y)
-    {
-      screen->px_array[x][y].pos.x = x * DIMPIXEL;
-      screen->px_array[x][y].pos.y = y * DIMPIXEL;
-      screen->px_array[x][y].color = BLACK;
-    }
+  init_px_array_TEST_(screen);
 
   screen->physical_screen = NULL;
   screen->square[0] = NULL;
@@ -51,7 +44,6 @@ void screen_update(SCREEN *screen)
   SDL_Flip(screen->physical_screen);
 }
 
-
 void screen_print(SCREEN *screen)
 {
   printf("w : %d ", w);
@@ -65,3 +57,26 @@ void screen_print(SCREEN *screen)
 
 }
 
+static void init_px_array(SCREEN *screen)
+{
+  for (int x = 0; x < w; ++x)
+    for (int y = 0; y < h; ++y)
+    {
+      screen->px_array[x][y].pos.x = x * DIMPIXEL;
+      screen->px_array[x][y].pos.y = y * DIMPIXEL;
+      screen->px_array[x][y].color = BLACK;
+    }
+}
+
+static void init_px_array_TEST_(SCREEN *screen)
+{
+  for (int x = 0; x < w; ++x)
+    for (int y = 0; y < h; ++y)
+    {
+      screen->px_array[x][y].pos.x = x * DIMPIXEL;
+      screen->px_array[x][y].pos.y = y * DIMPIXEL;
+
+      screen->px_array[x][y].color = (x % (y + 1)) ? WHITE : BLACK;
+
+    }
+}
