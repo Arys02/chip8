@@ -49,13 +49,19 @@ Uint16 get_opcode(CPU *cpu)
 void interpret_opcode(CPU *cpu, JUMP *jp, Uint16 opcode)
 {
   Uint8 op_id;
+  Uint8 b4, b3, b2, b1;
+
+  b3 = (opcode & (0x0F00)) >> 8;
+  b2 = (opcode & (0x00F0)) >> 4;
+  b1 = opcode & (0x000F);
+
   op_id = get_opcode_id(jp, opcode);
 
   switch(op_id)
   {
     case 0:
       {
-        //TODO
+        //not implemented opcode
         break;
       }
     case 1:
@@ -234,6 +240,36 @@ void interpret_opcode(CPU *cpu, JUMP *jp, Uint16 opcode)
         break;
       }
 
+  }
+
+}
+
+void draw_screen(SCREEN *screen, CPU *cpu, Uint8 b1, Uint8 b2, Uint8 b3)
+{
+  Uint8 x = 0;
+  Uint8 y = 0;
+
+  Uint8 codage = 0;
+
+  for (int i = 0; i < b1; ++i)
+  {
+    codage = cpu->memory[cpu->reg_I + i];
+    y = (cpu->reg[b2] + i) % 32;
+
+    for (int j = 0, d = 7; j < 8; ++j, d--)
+    {
+      x = (cpu->reg[b3] + j) % 64;
+      if (codage & (0x1 << d))
+      {
+        if (screen->px_array[x][y].color == WHITE)
+        {
+          screen->px_array[x][y].color = BLACK;
+          cpu->reg[0xF] = 1;
+        }
+        else
+          screen->px_array[x][y].color = WHITE;
+      }
+    }
   }
 
 }

@@ -5,7 +5,8 @@ LDFLAGS = -L/usr/lib/x86_64-linux-gnu -lSDL
 BIN = chip8
 SRC_DIR = src/
 I_DIR = src/include/
-OBJ = $(addprefix $(SRC_DIR),main.o cpu.o screen.o sdl_tools.o opcode.o)
+OBJ = $(addprefix $(SRC_DIR),main.o cpu.o screen.o sdl_tools.o opcode.o \
+      instruction.o)
 
 all: $(BIN)
 

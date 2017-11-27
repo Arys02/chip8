@@ -8,6 +8,7 @@
 
 
 #include "cpu.h"
+#include "screen.h"
 
 typedef struct
 {
@@ -23,5 +24,7 @@ Uint16 get_opcode(CPU *cpu);
 void decode_opcode(CPU *cpu);
 void interpret_opcode(CPU *cpu, JUMP *jp, Uint16 opcode);
 
+
+void draw_screen(SCREEN *screen, CPU *cpu, Uint8 b1, Uint8 b2, Uint8 b3);
 
 #endif /* !OPCODE_H */

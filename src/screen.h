@@ -1,6 +1,7 @@
 #ifndef PIXEL_H
 # define PIXEL_H
 #include <SDL/SDL.h>
+#include "cpu.h"
 
 #define BLACK 0
 #define WHITE 1
