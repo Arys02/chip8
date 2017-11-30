@@ -96,7 +96,50 @@ void op_8XY5(CPU *cpu, Uint8 b3, Uint8 b2) // 15
   cpu->reg[b3] -= cpu->reg[b2];
 }
 
-void op_8XY6(CPU *cpu, Uint8 b3, Uint8 b2) // 16
+void op_8XY6(CPU *cpu, Uint8 b3) // 16
 {
-  //TODO
+  cpu->reg[0xF] = cpu->reg[b3] & 0x01;
+  cpu->reg[b3] = cpu->reg[b3] >> 1;
 }
+
+void op_8XY7(CPU *cpu, Uint8 b3, Uint8 b2) // 17
+{
+
+  cpu->reg[0xF] = (cpu->reg[b3] > cpu->reg[b2]) ? 0 : 1;
+  cpu->reg[b3] = cpu->reg[b2] - cpu->reg[b3];
+}
+
+void op_8XY8(CPU *cpu, Uint8 b3) // 18
+{
+  cpu->reg[0xF] = cpu->reg[b3] >> 7;
+  cpu->reg[b3] = cpu->reg[b3] << 1;
+}
+
+void op_9XY0(CPU *cpu, Uint8 b3, Uint8 b2) // 19
+{
+  if (cpu->reg[b3] != cpu->reg[b2])
+    cpu->mem_pc += 2;
+}
+
+
+void op_ANNN(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1) // 20
+{
+  cpu->reg_I = (b3 << 8) + (b2 << 4) + b1;
+}
+
+void op_BNNN(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1) // 21
+{
+  cpu->mem_pc = (b3 << 8) + (b2 << 4) + b1 + cpu->reg[0];
+}
+
+void op_CXNN(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1) // 22
+{
+  cpu->reg[b3] = rand() % ((b2 << 4) + b1 + 1);
+}
+
+void op_DXYN(SCREEN *screen, CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1) // 23
+{
+  draw_screen(screen, cpu, b3, b2, b1);
+}
+
+

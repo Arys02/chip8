@@ -26,18 +26,18 @@ void op_8XY2(CPU *cpu, Uint8 b3, Uint8 b2); // 12
 void op_8XY3(CPU *cpu, Uint8 b3, Uint8 b2); // 13
 void op_8XY4(CPU *cpu, Uint8 b3, Uint8 b2); // 14
 void op_8XY5(CPU *cpu, Uint8 b3, Uint8 b2); // 15
-void op_8XY6(CPU *cpu, Uint8 b3, Uint8 b2); // 16
+void op_8XY6(CPU *cpu, Uint8 b3); // 16
 void op_8XY7(CPU *cpu, Uint8 b3, Uint8 b2); // 17
 void op_8XYE(CPU *cpu, Uint8 b3, Uint8 b2); // 18
 
-void op_9XY0(SCREEN *screen, CPU *cpu); // 19
-void op_ANNN(SCREEN *screen, CPU *cpu); // 20
-void op_BNNN(SCREEN *screen, CPU *cpu); // 21
-void op_CXNN(SCREEN *screen, CPU *cpu); // 22
+void op_9XY0(CPU *cpu, Uint8 b3, Uint8 b2); // 19
+void op_ANNN(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1);// 20
+void op_BNNN(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1); // 21
+void op_CNNN(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1); // 22
 
 
-void op_DXYN(SCREEN *screen, CPU *cpu); // 23
-void op_EX9E(SCREEN *screen, CPU *cpu); // 24
+void op_DXYN(SCREEN *screen, CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1); // 23
+void op_EX9E(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1); // 24
 void op_EXA1(SCREEN *screen, CPU *cpu); // 25
 
 void op_FX07(SCREEN *screen, CPU *cpu); // 26
