@@ -7,7 +7,7 @@ static void init_px_array_TEST_(SCREEN *screen);
 
 void screen_init(SCREEN *screen)
 {
-  init_px_array_TEST_(screen);
+  init_px_array(screen);
 
   screen->physical_screen = NULL;
   screen->square[0] = NULL;
@@ -45,19 +45,6 @@ void screen_update(SCREEN *screen)
       draw_pixel(screen, screen->px_array[x][y]);
 
   SDL_Flip(screen->physical_screen);
-}
-
-void screen_print(SCREEN *screen)
-{
-  printf("w : %d ", w);
-  printf("h : %d", h);
-  for (int i = 0; i < w; ++i)
-  {
-    printf("\n");
-    for (int j = 0; j < h; ++j)
-      printf("%d ", screen->px_array[i][j].color);
-  }
-
 }
 
 static void init_px_array(SCREEN *screen)

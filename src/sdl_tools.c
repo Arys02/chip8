@@ -36,3 +36,28 @@ void sdl_break()
   }
   while(continu);
 }
+
+Uint8 listen()
+{
+  Uint8 continu = 1;
+
+  while (SDL_PollEvent(&event))
+  {
+    switch (event.type)
+    {
+      case SDL_QUIT :
+        {
+          continu = 0;
+          break;
+        }
+      case SDL_KEYDOWN : 
+        {
+          continu = 0;
+          break;
+        }
+      default:
+        break;
+    }
+  }
+  return continu;
+}

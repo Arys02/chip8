@@ -7,6 +7,7 @@
 void sdl_init();
 void sdl_quit();
 void sdl_break();
+Uint8 listen();
 
 SDL_Event event;
 

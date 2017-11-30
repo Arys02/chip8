@@ -34,6 +34,5 @@ void screen_init(SCREEN *screen);
 void draw_pixel(SCREEN *screen, PIXEL pixel);
 void screen_clear(SCREEN *screen);
 void screen_update(SCREEN *screen);
-void screen_print(SCREEN *screen);
 
 #endif /* !PIXEL_H */

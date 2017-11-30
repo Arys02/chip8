@@ -46,7 +46,7 @@ Uint16 get_opcode(CPU *cpu)
   return (cpu->memory[cpu->mem_pc] << 8) + cpu->memory[cpu->mem_pc + 1];
 }
 
-void interpret_opcode(CPU *cpu, JUMP *jp, Uint16 opcode)
+void interpret_opcode(SCREEN *screen, CPU *cpu, JUMP *jp, Uint16 opcode)
 {
   Uint8 op_id;
   Uint8 b4, b3, b2, b1;
@@ -66,172 +66,174 @@ void interpret_opcode(CPU *cpu, JUMP *jp, Uint16 opcode)
       }
     case 1:
       {
-        //TODO
+        op_00EO(screen);
         break;
       }
     case 2:
       {
-        //TODO
+        op_00EE(cpu);
         break;
       }
     case 3:
       {
-        //TODO
+        op_1NNN(cpu, b3, b2, b1);
         break;
       }
     case 4:
       {
-        //TODO
+        op_2NNN(cpu, b3, b2, b1);
         break;
       }
     case 5:
       {
-        //TODO
+        op_3XNN(cpu, b3, b2, b1);
         break;
       }
     case 6:
       {
-        //TODO
+        op_4XNN(cpu, b3, b2, b1);
         break;
       }
     case 7:
       {
-        //TODO
+        op_5XY0(cpu, b3, b2);
         break;
       }
     case 8:
       {
-        //TODO
+        op_6XNN(cpu, b3, b2, b1);
         break;
       }
     case 9:
       {
-        //TODO
+        op_7XNN(cpu, b3, b2, b1);
         break;
       }
     case 10:
       {
-        //TODO
+        op_8XY0(cpu, b3, b2);
         break;
       }
     case 11:
       {
-        //TODO
+        op_8XY1(cpu, b3, b2);
         break;
       }
     case 12:
       {
-        //TODO
+        op_8XY2(cpu, b3, b2);
         break;
       }
     case 13:
       {
-        //TODO
+        op_8XY3(cpu, b3, b2);
         break;
       }
     case 14:
       {
-        //TODO
+        op_8XY4(cpu, b3, b2);
         break;
       }
     case 15:
       {
-        //TODO
+        op_8XY5(cpu, b3, b2);
         break;
       }
     case 16:
       {
-        //TODO
+        op_8XY6(cpu, b3);
         break;
       }
     case 17:
       {
-        //TODO
+        op_8XY7(cpu, b3, b2);
         break;
       }
     case 18:
       {
-        //TODO
+        op_8XYE(cpu, b3);
         break;
       }
     case 19:
       {
-        //TODO
+        op_9XY0(cpu, b3, b2);
         break;
       }
     case 20:
       {
-        //TODO
+
+        op_ANNN(cpu, b3, b2, b1);
         break;
       }
     case 21:
       {
-        //TODO
+        op_BNNN(cpu, b3, b2, b1);
         break;
       }
     case 22:
       {
-        //TODO
+        op_CXNN(cpu, b3, b2, b1);
         break;
       }
     case 23:
       {
-        //TODO
+        op_DXYN(screen, cpu, b3, b2, b1);
         break;
       }
     case 24:
       {
-        //TODO
+        op_EX9E(cpu, b3, b2, b1);
         break;
       }
     case 25:
       {
-        //TODO
+
+        op_EXA1(cpu, b3, b2, b1);
         break;
       }
     case 26:
       {
-        //TODO
+        op_FX07(cpu, b3);
         break;
       }
     case 27:
       {
-        //TODO
+        op_FX0A(cpu, b3);
         break;
       }
     case 28:
       {
-        //TODO
+        op_FX15(cpu, b3);
         break;
       }
     case 29:
       {
-        //TODO
+        op_FX18(cpu, b3);
         break;
       }
     case 30:
       {
-        //TODO
+        op_FX1E(cpu, b3);
         break;
       }
     case 31:
       {
-        //TODO
+        op_FX29(cpu, b3);
         break;
       }
     case 32:
       {
-        //TODO
+        op_FX33(cpu, b3);
         break;
       }
     case 33:
       {
-        //TODO
+        op_FX55(cpu, b3);
         break;
       }
     case 34:
       {
-        //TODO
+        op_FX65(cpu, b3);
         break;
       }
     default:
