@@ -5,7 +5,6 @@
 #include "screen.h"
 #include "sdl_tools.h"
 #include "opcode.h"
-#include "game_engine.h"
 
 #define CPUSPEED 4
 #define FRAMERATE 16
@@ -30,6 +29,11 @@ int main()
   Uint8 continu = 1;
 
   int rom = load_rom(cpu, "MAZE.ch8");
+  
+
+  cpu_print(cpu);
+  //exit(1);
+
   if (!rom)
   {
     do

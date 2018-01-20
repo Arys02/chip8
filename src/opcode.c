@@ -43,6 +43,7 @@ void init_jump(JUMP *jp)
 
 Uint16 get_opcode(CPU *cpu)
 {
+  //TODO FIX OPCODE, CETTE SALLOPERIE NE RENEVOIS PAS UN TRUC PROPRE.  
   return (cpu->memory[cpu->mem_pc] << 8) + cpu->memory[cpu->mem_pc + 1];
 }
 
@@ -51,11 +52,13 @@ void interpret_opcode(SCREEN *screen, CPU *cpu, JUMP *jp, Uint16 opcode)
   Uint8 op_id;
   Uint8 b4, b3, b2, b1;
 
+  op_id = get_opcode_id(jp, opcode);
+
   b3 = (opcode & (0x0F00)) >> 8;
   b2 = (opcode & (0x00F0)) >> 4;
   b1 = opcode & (0x000F);
 
-  op_id = get_opcode_id(jp, opcode);
+
 
   switch(op_id)
   {
@@ -244,6 +247,7 @@ void interpret_opcode(SCREEN *screen, CPU *cpu, JUMP *jp, Uint16 opcode)
 
   }
 
+  cpu->mem_pc += 2;
 }
 
 void draw_screen(SCREEN *screen, CPU *cpu, Uint8 b1, Uint8 b2, Uint8 b3)
@@ -278,14 +282,15 @@ void draw_screen(SCREEN *screen, CPU *cpu, Uint8 b1, Uint8 b2, Uint8 b3)
 
 static Uint8 get_opcode_id(JUMP *jp, Uint16 opcode)
 {
-  Uint8 calcul_id;
+  Uint16 calcul_id;
 
   for (int i = 0; i < NBOPCODE; ++i)
   {
+
     calcul_id = jp->mask[i] & opcode;
     if (calcul_id == jp->id[i])
       return i;
   }
-  // mean something failed
+  printf("get_opcode_id failed\n");
   return 0;
 }

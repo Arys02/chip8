@@ -58,6 +58,8 @@ void cpu_print(CPU *cpu)
 
   printf("timer_game = %d\n", cpu->timer_game);
   printf("timer_sound = %d\n", cpu->timer_sound);
+
+  mem_print(cpu);
 }
 
 
@@ -82,3 +84,33 @@ static void init_digit(CPU *cpu)
 
 }
 
+
+void mem_print(CPU *cpu)
+{
+  Uint8 *tmp = cpu->memory;
+  for (int i = 0; i < MEMSIZE; i++)
+  {
+    if (i % 5 == 0 || i < 5)
+      printf("\n%04d ", i);
+
+    printf("%04x ",*tmp);
+    tmp++;
+  }
+}
+
+int load_rom(CPU *cpu, char *path)
+{
+  FILE *rom = NULL;
+  rom = fopen(path, "rb");
+
+  if (rom)
+  {
+    fread(cpu->memory + ADDRSTART, sizeof(Uint8) * (MEMSIZE - ADDRSTART), 1, rom);
+    fclose(rom);
+    printf("Rom correctly loaded\n");
+    return 0;
+  }
+
+  fprintf(stderr, "error while trying to open the rom file");
+  return 1;
+}

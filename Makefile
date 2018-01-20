@@ -6,7 +6,7 @@ BIN = chip8
 SRC_DIR = src/
 I_DIR = src/include/
 OBJ = $(addprefix $(SRC_DIR),main.o cpu.o screen.o sdl_tools.o opcode.o \
-      instruction.o game_engine.o)
+      instruction.o)
 
 all: $(BIN)
 
@@ -20,7 +20,8 @@ rerun: clean run
 
 
 debug: CFLAGS += -g
-debug: clean $(BIN)
+debug: clean all
+
 
 check: $(BIN)
 	@echo test

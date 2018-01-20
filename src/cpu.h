@@ -1,7 +1,7 @@
 #ifndef CPU_H
 # define CPU_H
 
-#define MEMSIZE 4092
+#define MEMSIZE 4096
 #define ADDRSTART 512
 
 typedef struct
@@ -16,7 +16,6 @@ typedef struct
   Uint16 stack[16];
   Uint8 jump;
 
-
   Uint8 timer_game;
   Uint8 timer_sound;
 
@@ -25,6 +24,9 @@ typedef struct
 void cpu_init(CPU *cpu);
 void cpu_decompter(CPU *cpu);
 void cpu_print(CPU *cpu);
+void mem_print(CPU *cpu);
+
+int load_rom(CPU *cpu, char *path);
 
 
 
