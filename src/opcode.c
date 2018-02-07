@@ -1,6 +1,7 @@
 #include "opcode.h"
 
 static Uint8 get_opcode_id(JUMP *jp, Uint16 opcode);
+static void print_opcode(Uint16 opcode);
 
 void init_jump(JUMP *jp)
 {
@@ -43,14 +44,15 @@ void init_jump(JUMP *jp)
 
 Uint16 get_opcode(CPU *cpu)
 {
-  //TODO FIX OPCODE, CETTE SALLOPERIE NE RENEVOIS PAS UN TRUC PROPRE.  
   return (cpu->memory[cpu->mem_pc] << 8) + cpu->memory[cpu->mem_pc + 1];
 }
 
-void interpret_opcode(SCREEN *screen, CPU *cpu, JUMP *jp, Uint16 opcode)
+Uint8 interpret_opcode(SCREEN *screen, CPU *cpu, JUMP *jp, Uint16 opcode)
 {
   Uint8 op_id;
-  Uint8 b4, b3, b2, b1;
+  Uint8 b3, b2, b1;
+  Uint8 continu = 1;
+
 
   op_id = get_opcode_id(jp, opcode);
 
@@ -58,13 +60,13 @@ void interpret_opcode(SCREEN *screen, CPU *cpu, JUMP *jp, Uint16 opcode)
   b2 = (opcode & (0x00F0)) >> 4;
   b1 = opcode & (0x000F);
 
+  printf("%x\n", opcode);
 
 
   switch(op_id)
   {
     case 0:
       {
-        //not implemented opcode
         break;
       }
     case 1:
@@ -185,13 +187,13 @@ void interpret_opcode(SCREEN *screen, CPU *cpu, JUMP *jp, Uint16 opcode)
       }
     case 24:
       {
-        op_EX9E(cpu, b3, b2, b1);
+        op_EX9E(cpu, b3);
         break;
       }
     case 25:
       {
 
-        op_EXA1(cpu, b3, b2, b1);
+        op_EXA1(cpu, b3);
         break;
       }
     case 26:
@@ -201,7 +203,8 @@ void interpret_opcode(SCREEN *screen, CPU *cpu, JUMP *jp, Uint16 opcode)
       }
     case 27:
       {
-        op_FX0A(cpu, b3);
+        printf("---waitkeeeeeeeeeyyyyyyy ---- \n");
+        continu = op_FX0A(cpu, b3);
         break;
       }
     case 28:
@@ -241,13 +244,13 @@ void interpret_opcode(SCREEN *screen, CPU *cpu, JUMP *jp, Uint16 opcode)
       }
     default:
       {
-        //error
+        exit(1);
         break;
       }
 
   }
-
   cpu->mem_pc += 2;
+  return continu;
 }
 
 void draw_screen(SCREEN *screen, CPU *cpu, Uint8 b1, Uint8 b2, Uint8 b3)
@@ -293,4 +296,9 @@ static Uint8 get_opcode_id(JUMP *jp, Uint16 opcode)
   }
   printf("get_opcode_id failed\n");
   return 0;
+}
+
+static void print_opcode(Uint16 opcode)
+{
+  printf("%04x \n", opcode);
 }

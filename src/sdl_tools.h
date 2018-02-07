@@ -7,7 +7,9 @@
 void sdl_init();
 void sdl_quit();
 void sdl_break();
-Uint8 listen();
+Uint8 listen(SCREEN *screen, CPU *cpu);
+Uint8 waitkey(CPU *cpu, Uint8 b3);
+void reset(SCREEN *screen, CPU *cpu);
 
 SDL_Event event;
 

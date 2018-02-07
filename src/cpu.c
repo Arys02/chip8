@@ -18,6 +18,7 @@ void cpu_init(CPU *cpu)
   {
     cpu->reg[i] = 0;
     cpu->stack[i] = 0;
+    cpu->key[i] = 0;
   }
 
   cpu->reg_I = 0;
@@ -63,8 +64,10 @@ void cpu_print(CPU *cpu)
 }
 
 
+
+
 static void init_digit(CPU *cpu)
-{
+{ 
     cpu->memory[0]  = 0xF0; cpu->memory[1]  = 0x90; cpu->memory[2]  = 0x90; cpu->memory[3]  = 0x90; cpu->memory[4]  = 0xF0;  // O
     cpu->memory[5]  = 0x20; cpu->memory[6]  = 0x60; cpu->memory[7]  = 0x20; cpu->memory[8]  = 0x20; cpu->memory[9]  = 0x70;  // 1
     cpu->memory[10] = 0xF0; cpu->memory[11] = 0x10; cpu->memory[12] = 0xF0; cpu->memory[13] = 0x80; cpu->memory[14] = 0xF0;  // 2

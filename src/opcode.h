@@ -23,7 +23,7 @@ int get_jump_id();
 
 Uint16 get_opcode(CPU *cpu);
 void decode_opcode(CPU *cpu);
-void interpret_opcode(SCREEN *screen, CPU *cpu, JUMP *jp, Uint16 opcode);
+Uint8 interpret_opcode(SCREEN *screen, CPU *cpu, JUMP *jp, Uint16 opcode);
 
 
 void draw_screen(SCREEN *screen, CPU *cpu, Uint8 b1, Uint8 b2, Uint8 b3);

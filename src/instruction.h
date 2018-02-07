@@ -4,6 +4,7 @@
 #include "opcode.h"
 #include "screen.h"
 #include "cpu.h"
+#include "sdl_tools.h"
 
 void op_00EO(SCREEN *screen); // 1
 void op_00EE(CPU *cpu); // 2
@@ -37,11 +38,11 @@ void op_CXNN(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1); // 22
 
 
 void op_DXYN(SCREEN *screen, CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1); // 23
-void op_EX9E(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1); // 24
-void op_EXA1(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1); // 25
+void op_EX9E(CPU *cpu, Uint8 b3); // 24
+void op_EXA1(CPU *cpu, Uint8 b3); // 25
 
 void op_FX07(CPU *cpu, Uint8 b3);// 26
-void op_FX0A(CPU *cpu, Uint8 b3);// 27
+Uint8 op_FX0A(CPU *cpu, Uint8 b3);// 27
 void op_FX15(CPU *cpu, Uint8 b3);// 28
 void op_FX18(CPU *cpu, Uint8 b3);// 29
 void op_FX1E(CPU *cpu, Uint8 b3);// 30

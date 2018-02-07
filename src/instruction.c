@@ -11,7 +11,7 @@ void op_00EO(SCREEN *screen) // 1
 
 void op_00EE(CPU *cpu) // 2
 {
-  if (cpu->jump)
+  if (cpu->jump > 0)
   {
     cpu->jump--;
     cpu->mem_pc = cpu->stack[cpu->jump];
@@ -85,7 +85,7 @@ void op_8XY3(CPU *cpu, Uint8 b3, Uint8 b2) // 13
 
 void op_8XY4(CPU *cpu, Uint8 b3, Uint8 b2) // 14
 {
-  cpu->reg[0xF] = (cpu->reg[b3] + cpu->reg[b2] > 0xFF) ? 1 : 0;
+  cpu->reg[0xF] = ((cpu->reg[b3] + cpu->reg[b2]) > 255) ? 1 : 0;
   cpu->reg[b3] += cpu->reg[b2];
 }
 
@@ -103,7 +103,6 @@ void op_8XY6(CPU *cpu, Uint8 b3) // 16
 
 void op_8XY7(CPU *cpu, Uint8 b3, Uint8 b2) // 17
 {
-
   cpu->reg[0xF] = (cpu->reg[b3] > cpu->reg[b2]) ? 0 : 1;
   cpu->reg[b3] = cpu->reg[b2] - cpu->reg[b3];
 }
@@ -129,6 +128,7 @@ void op_ANNN(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1) // 20
 void op_BNNN(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1) // 21
 {
   cpu->mem_pc = (b3 << 8) + (b2 << 4) + b1 + cpu->reg[0];
+  cpu->mem_pc -= 2;
 }
 
 void op_CXNN(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1) // 22
@@ -138,17 +138,21 @@ void op_CXNN(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1) // 22
 
 void op_DXYN(SCREEN *screen, CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1) // 23
 {
-  draw_screen(screen, cpu, b3, b2, b1);
+  draw_screen(screen, cpu, b1, b2, b3);
 }
 
-void op_EX9E(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1)// 24
+void op_EX9E(CPU *cpu, Uint8 b3)// 24
 {
-  //TODO
+  printf("%x\n",cpu->key[cpu->reg[b3]]);
+  printf("%x\n",cpu->reg[b3]);
+  if (cpu->key[cpu->reg[b3]] == 1)
+    cpu += 2;
 }
 
-void op_EXA1(CPU *cpu, Uint8 b3, Uint8 b2, Uint8 b1)// 25
+void op_EXA1(CPU *cpu, Uint8 b3)// 25
 {
-  //TODO
+  if (cpu->key[cpu->reg[b3]] == 0)
+    cpu += 2;
 }
 
 void op_FX07(CPU *cpu, Uint8 b3)// 26
@@ -156,9 +160,9 @@ void op_FX07(CPU *cpu, Uint8 b3)// 26
   cpu->reg[b3] = cpu->timer_game;
 }
 
-void op_FX0A(CPU *cpu, Uint8 b3)// 27
+Uint8 op_FX0A(CPU *cpu, Uint8 b3)// 27
 {
-  //TODO
+  return waitkey(cpu, b3);
 }
 
 void op_FX15(CPU *cpu, Uint8 b3)// 28
@@ -174,7 +178,7 @@ void op_FX18(CPU *cpu, Uint8 b3)// 29
 void op_FX1E(CPU *cpu, Uint8 b3)// 30
 {
   cpu->reg[0xF] = (cpu->reg[b3] + cpu->reg_I) > 0xFFF ? 1 : 0;
-  cpu->reg_I = cpu->reg[b3] + cpu->reg_I;
+  cpu->reg_I += cpu->reg[b3];
 }
 
 void op_FX29(CPU *cpu, Uint8 b3)// 31
@@ -191,12 +195,12 @@ void op_FX33(CPU *cpu, Uint8 b3)// 32
 
 void op_FX55(CPU *cpu, Uint8 b3)// 33
 {
-  for (int i = 0; i < b3; i++)
+  for (int i = 0; i <= b3; i++)
     cpu->memory[cpu->reg_I + i] = cpu->reg[i];
 }
 
 void op_FX65(CPU *cpu, Uint8 b3)// 34
 {
-  for (int i = 0; i < b3; i++)
+  for (int i = 0; i <= b3; i++)
     cpu->reg[i] = cpu->memory[cpu->reg_I + i];
 }

@@ -19,12 +19,15 @@ typedef struct
   Uint8 timer_game;
   Uint8 timer_sound;
 
+  Uint8 key[16];
+
 } CPU;
 
 void cpu_init(CPU *cpu);
 void cpu_decompter(CPU *cpu);
 void cpu_print(CPU *cpu);
 void mem_print(CPU *cpu);
+
 
 int load_rom(CPU *cpu, char *path);
 

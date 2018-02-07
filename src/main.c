@@ -9,7 +9,7 @@
 #define CPUSPEED 4
 #define FRAMERATE 16
 
-int main()
+int main(int argc, char** argv)
 {
   //setup CPU
   CPU *cpu = malloc(sizeof(CPU));
@@ -20,7 +20,7 @@ int main()
   init_jump(jp);
 
   //setup sdl
-  sdl_init();
+  //sdl_init();
 
   //setup screen
   SCREEN *screen = malloc(sizeof(SCREEN));
@@ -28,19 +28,18 @@ int main()
 
   Uint8 continu = 1;
 
-  int rom = load_rom(cpu, "MAZE.ch8");
-  
+  int rom = load_rom(cpu, argv[1]);
 
-  cpu_print(cpu);
-  //exit(1);
+  mem_print(cpu);
 
   if (!rom)
   {
     do
     {
-      continu = listen();
-      for (int i = 0; i < CPUSPEED; ++i)
-        interpret_opcode(screen, cpu, jp, get_opcode(cpu));
+      continu = listen(screen, cpu);
+      printf("%d \n", continu);
+      for (int i = 0; i < CPUSPEED && continu; ++i)
+        continu = interpret_opcode(screen, cpu, jp, get_opcode(cpu));
 
       screen_update(screen);
       SDL_Delay(FRAMERATE);
@@ -56,5 +55,6 @@ int main()
   free(screen);
   return 0;
 }
+
 
 
